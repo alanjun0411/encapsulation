@@ -11,22 +11,44 @@ function OneRandom(min, max) {
         return onerandom;
     }
 }
-//产生一个随机数一维数组
-function ArrayRandom(number, min, max) {
+//数组随机数
+//只能输入数字,最多只能输入四个
+// 输入参数请按照一下格式"最小值,最大值,数组元素个数(二维数组X下标),(二维数组Y下标)",只能输入数字
+function ArrayRandom() {
     var arr = [];
-    if (isNaN(number)) {
-        return '输入参数请按照一下格式"数组元素个数,最小值,最大值",只能输入数字';
-    } else if (min === undefined && max === undefined) {
-        for (var i = 0; i < number; i++) {
-            arr[i] = OneRandom(0, 10)
+    var btn = false;
+    for (var cunt = 0; cunt < arguments.length; cunt++) {
+        if (isNaN(arguments[cunt])) {
+            btn = true;
         }
-        return arr;
-    } else if (isNaN(min) || isNaN(max)) {
-        return '输入参数请按照一下格式"数组元素个数,最小值,最大值",只能输入数字haob';
+    }
+    if (btn) {
+        alert("请输入数值!!!");
+    } else if (arguments.length >= 5) {
+        alert("最多输入4个数值!!!");
     } else {
-        for (var i = 0; i < number; i++) {
-            arr[i] = OneRandom(min, max)
+        if (arguments.length === 0) {
+            return OneRandom(0, 10);
+        } else if (arguments.length === 1) {
+            for (var i = 0; i < arguments[0]; i++) {
+                arr[i] = OneRandom(0, 10)
+            }
+            return arr;
+        } else if (arguments.length === 2) {
+            return OneRandom(arguments[0], arguments[1]);
+        } else if (arguments.length === 3) {
+            for (var i = 0; i < arguments[2]; i++) {
+                arr[i] = OneRandom(arguments[0], arguments[1]);
+            }
+            return arr;
+        } else if (arguments.length === 4) {
+            for (var i = 0; i < arguments[3]; i++) {
+                arr[i] = [];
+                for (var j = 0; j < arguments[2]; j++) {
+                    arr[i][j] = OneRandom(arguments[0], arguments[1]);
+                }
+            }
+            return arr;
         }
-        return arr;
     }
 }
